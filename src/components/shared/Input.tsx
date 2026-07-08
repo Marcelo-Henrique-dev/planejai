@@ -3,10 +3,10 @@ import { Divider } from './Divider'
 
 export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   prefix?: string
-  sufix?: string
+  suffix?: string
 }
 
-export function Input({ prefix, sufix, ...rest }: InputProps) {
+export function Input({ prefix, suffix: sufix, ...rest }: InputProps) {
   return (
     <div className="bg-input flex items-center rounded-2xl p-4 shadow-[4px_4px_18px_0px_rgba(0,0,0,0.2)]">
       {prefix && (
