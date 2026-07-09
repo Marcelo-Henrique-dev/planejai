@@ -2,7 +2,7 @@ import { CalendarClock, CreditCard, Goal, Landmark, PiggyBank, Wallet } from 'lu
 
 import type { FormStepProps } from '@/components/features/Simulation/FormStep'
 
-export const simulationFormSteps: FormStepProps[] = [
+export const simulationFormSteps = [
   {
     id: 'income',
     icon: PiggyBank,
@@ -43,7 +43,6 @@ export const simulationFormSteps: FormStepProps[] = [
     question: 'Qual o objetivo que você deseja alcançar?',
     inputProps: {
       placeholder: 'ex: Viagem para o Japão',
-      maxLength: 12,
     },
   },
   {
@@ -74,4 +73,6 @@ export const simulationFormSteps: FormStepProps[] = [
       emojiIcon: '✨',
     },
   },
-]
+] satisfies FormStepProps[]
+
+export type SimulationFormData = Record<(typeof simulationFormSteps)[number]['id'], string>
