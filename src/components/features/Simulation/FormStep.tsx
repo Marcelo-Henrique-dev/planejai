@@ -1,7 +1,7 @@
 import { Button } from '@/components/shared/Button'
 import { Input, type InputProps } from '@/components/shared/Input'
 import { ArrowLeft, ArrowRight, type LucideIcon } from 'lucide-react'
-import type { SyntheticEvent } from 'react'
+import { useState, type SyntheticEvent } from 'react'
 
 export interface FormStepProps {
   id: string
@@ -31,8 +31,13 @@ export function FormStep({
   onNext,
   hideBackButton,
 }: FormStepProps & actionsButtonsProps) {
+  const [inputValue, setInputValue] = useState('')
+
   const handleSubmit = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
+    if (!inputValue) {
+      return
+    }
     onNext()
   }
 
@@ -46,7 +51,7 @@ export function FormStep({
         {question}
       </h3>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <Input {...inputProps} />
+        <Input {...inputProps} value={inputValue} onChange={e => setInputValue(e.target.value)} />
         <div className="flex flex-col gap-3 sm:flex-row sm:gap-6">
           {!hideBackButton && (
             <Button
@@ -62,8 +67,9 @@ export function FormStep({
           <Button
             type="submit"
             variant="primary"
-            className="order-1 flex-1 sm:order-2"
             icon={!submitButtonProps ? ArrowRight : undefined}
+            disabled={!inputValue}
+            className="order-1 flex-1 sm:order-2"
           >
             {submitButtonProps?.label ?? 'Próximo'}
             {submitButtonProps?.emojiIcon}

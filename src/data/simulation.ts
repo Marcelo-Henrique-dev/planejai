@@ -12,6 +12,7 @@ export const simulationFormSteps: FormStepProps[] = [
       placeholder: 'ex: 5.000,00',
       prefix: 'R$',
       maxLength: 12,
+      type: 'number',
     },
   },
   {
@@ -23,6 +24,7 @@ export const simulationFormSteps: FormStepProps[] = [
       placeholder: 'ex: 2.000,00',
       prefix: 'R$',
       maxLength: 12,
+      type: 'number',
     },
   },
   {
@@ -33,6 +35,7 @@ export const simulationFormSteps: FormStepProps[] = [
     inputProps: {
       placeholder: 'ex: 500,00',
       prefix: 'R$',
+      type: 'number',
       maxLength: 12,
     },
   },
@@ -55,6 +58,7 @@ export const simulationFormSteps: FormStepProps[] = [
       placeholder: 'ex: 15.000,00',
       prefix: 'R$',
       maxLength: 12,
+      type: 'number',
     },
   },
   {
