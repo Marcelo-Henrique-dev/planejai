@@ -41,3 +41,7 @@
   --color-red-500: #ef4444;
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
 }
+
+@theme {
+  --shadow-default: 4px 4px 18px 0px rgba(0, 0, 0, 0.2);
+}
