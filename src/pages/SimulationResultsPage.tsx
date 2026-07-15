@@ -1,3 +1,4 @@
+import { AIInsightsCard } from '@/components/features/SimulationReults/AiInsightCardProps'
 import { Card } from '@/components/features/SimulationReults/Card'
 import { PageHero } from '@/components/shared/PageHero'
 import { useSimulationStorage } from '@/hooks/useSimulationStorage'
@@ -40,9 +41,7 @@ export function SimulationResultsPage() {
         />
       </div>
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="bg-card order-2 rounded-2xl p-6 shadow-default lg:order-1 lg:col-span-2">
-          Painel de Insights
-        </div>
+        <AIInsightsCard simulationId={data.id} />
         <div className="order-1 flex flex-col gap-6 lg:order-2">
           <Card
             icon={Wallet}
