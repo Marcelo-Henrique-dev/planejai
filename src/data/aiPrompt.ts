@@ -57,6 +57,7 @@ export function buildAIPrompt(simulation: SimulationRecord) {
     - Seja específico ao citar valores calculados
     - Não repita informações entre seções
     - Nunca use markdown dentro dos valores do JSON
+    - Você não pode me enviar retorono do tipo Markdown em nenhuma hipótese, quero apenas o JSON puro
     - Para o campo "feasibility.status", use os seguintes critérios:
       - "viable": saldo após reserva para a meta é maior ou igual a 0
       - "needs_adjustment": saldo negativo de até 20% do valor da economia mensal necessária

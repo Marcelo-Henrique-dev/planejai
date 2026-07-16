@@ -2,9 +2,8 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { buildAIPrompt } from '@/data/aiPrompt'
 import type { SimulationRecord } from '@/data/simulation'
+import { useSimulationStorage } from '@/hooks/useSimulationStorage'
 import { getInsight, type InsightData } from '@/service/aiService'
-
-import { useSimulationStorage } from './useSimulationStorage'
 
 export const useInsight = (id: string) => {
   const isRequestPending = useRef(false)
@@ -27,7 +26,7 @@ export const useInsight = (id: string) => {
       const simulation = getFormData(simulationId)
 
       if (!simulation) {
-        setError('Simulação não encontrada')
+        setError('Simulação não encontrada.')
         return
       }
 
@@ -45,6 +44,7 @@ export const useInsight = (id: string) => {
         } as SimulationRecord)
       } catch {
         setError('Erro ao gerar o diagnóstico. Tente novamente.')
+        console.error('Erro ao gerar, analisar retorno da API')
       } finally {
         isRequestPending.current = false
         setIsLoading(false)
