@@ -42,7 +42,7 @@ export function AIInsightsCard({ simulationId }: AIInsightCardProps) {
           }}
         />
       )}
-      {!isLoading && insight && !error && <Content />}
+      {!isLoading && insight && !error && <Content insight={insight} />}
     </div>
   )
 }
