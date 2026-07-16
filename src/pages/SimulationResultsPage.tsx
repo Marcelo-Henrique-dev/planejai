@@ -1,4 +1,4 @@
-import { AIInsightsCard } from '@/components/features/SimulationReults/AiInsightCardProps'
+import { AIInsightsCard } from '@/components/features/SimulationReults/AIInsightCardProps'
 import { Card } from '@/components/features/SimulationReults/Card'
 import { PageHero } from '@/components/shared/PageHero'
 import { useSimulationStorage } from '@/hooks/useSimulationStorage'
