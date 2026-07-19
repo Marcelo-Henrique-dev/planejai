@@ -26,6 +26,10 @@ export default function SimulationHistory() {
   }
 
   const handleDelete = (id: string) => {
+    const isConfirmed = confirm("Tem certeza que deseja apagar esta simulação?")
+    if(!isConfirmed){
+      return
+    }
     deleteSimulation(id)
     setHistory(prevHistory => (prevHistory ? prevHistory.filter(item => item.id !== id) : null))
   }
