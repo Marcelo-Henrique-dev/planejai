@@ -1,75 +1,73 @@
-# React + TypeScript + Vite
+# Planejai
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Planejai é um planejador financeiro pessoal voltado para ajudar o usuário a organizar metas, entender sua capacidade de poupança e receber insights personalizados com o apoio de IA.
 
-Currently, two official plugins are available:
+A ideia do projeto é transformar dados simples, como renda, gastos fixos, dívidas e objetivo financeiro, em uma visão mais clara do caminho para alcançar uma meta, como uma viagem, um carro, uma reserva de emergência ou qualquer outro plano.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## O que o projeto faz
 
-## React Compiler
+- Permite montar uma simulação financeira com base em renda, despesas e dívidas.
+- Calcula a economia mensal necessária para atingir uma meta em um determinado prazo.
+- Exibe um resumo do resultado da simulação de forma visual e objetiva.
+- Usa a API do Gemini para gerar insights personalizados, com diagnóstico, sugestões de redução de gastos, ideias de renda extra e recomendações de investimento.
+- Mantém um histórico das simulações para o usuário consultar depois.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tecnologias utilizadas
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- React Router
+- Tailwind CSS
+- Lucide React
+- Gemini API (via fetch no frontend)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Como iniciar o projeto
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 1. Pré-requisitos
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- Node.js 18+ (recomendado 20+)
+- pnpm
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### 2. Instale as dependências
 
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 3. Configure a variável de ambiente da IA
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Crie um arquivo chamado `.env.local` na raiz do projeto e adicione sua chave da API do Gemini:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```env
+VITE_GEMINI_API_KEY=sua_chave_aqui
 ```
+
+### 4. Execute o projeto localmente
+
+```bash
+pnpm dev
+```
+
+A aplicação ficará disponível em `http://localhost:5173`.
+
+## Scripts disponíveis
+
+```bash
+pnpm dev
+pnpm build
+pnpm lint
+pnpm preview
+```
+
+## Estrutura geral
+
+- `src/pages` — páginas da aplicação
+- `src/components` — interface e blocos visuais
+- `src/hooks` — lógica reutilizável e armazenamento local
+- `src/service` — integração com a IA
+- `src/utils` — cálculos financeiros
+
+## Objetivo do projeto
+
+O Planejai foi criado para ajudar pessoas a tomar decisões financeiras mais conscientes, entendendo se uma meta é viável no prazo desejado e recebendo orientações práticas para melhorar o planejamento financeiro.
