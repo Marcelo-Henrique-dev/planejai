@@ -27,6 +27,15 @@ export const useSimulationStorage = () => {
     return savedData.find(record => record.id === id) || null
   }, [])
 
+  const getHistory = useCallback((): SimulationRecord[] | null => {
+    const storage = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (!storage) {
+      return null
+    }
+
+    return JSON.parse(storage) as SimulationRecord[]
+  }, [])
+
   const updateSimulation = useCallback((id: string, data: SimulationRecord) => {
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY)
     const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : []
@@ -36,5 +45,17 @@ export const useSimulationStorage = () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated))
   }, [])
 
-  return { saveFormData, getFormData, updateSimulation }
+  const deleteSimulation = useCallback((id: string) => {
+    const isConfirmed = confirm('Realmente deseja apagar esta simulação?')
+    if (!isConfirmed) {
+      return
+    }
+    const storage = localStorage.getItem(LOCAL_STORAGE_KEY)
+    const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : []
+
+    const updatedData = savedData.filter(item => item.id !== id)
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updatedData))
+  }, [])
+
+  return { saveFormData, getFormData, updateSimulation, getHistory, deleteSimulation }
 }

@@ -29,7 +29,7 @@
     --input: #232131;
     --skeleton-base-color: #3e3e42;
     --skeleton-highlight-color: var(--primary);
-    --shadow-color: rgba(255, 255, 255, 0.2);
+    --shadow-color: #925cf031;
   }
 }
 
