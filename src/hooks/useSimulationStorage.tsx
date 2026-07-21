@@ -46,10 +46,6 @@ export const useSimulationStorage = () => {
   }, [])
 
   const deleteSimulation = useCallback((id: string) => {
-    const isConfirmed = confirm('Realmente deseja apagar esta simulação?')
-    if (!isConfirmed) {
-      return
-    }
     const storage = localStorage.getItem(LOCAL_STORAGE_KEY)
     const savedData = storage ? (JSON.parse(storage) as SimulationRecord[]) : []
 
