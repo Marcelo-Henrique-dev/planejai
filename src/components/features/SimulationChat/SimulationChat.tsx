@@ -1,9 +1,10 @@
 import { Button } from '@/components/shared/Button'
+import { Divider } from '@/components/shared/Divider'
 import { Input } from '@/components/shared/Input'
 import { useSimulationChat } from '@/hooks/useSimulationChat'
 import { MessageSquare, Send, X } from 'lucide-react'
-import { useState, type SyntheticEvent } from 'react'
-import Skeleton from 'react-loading-skeleton'
+import { useEffect, useRef, useState, type SyntheticEvent } from 'react'
+import ChatMessage from './ChatMessage'
 import { Error } from './Error'
 
 interface SimulationChatProps {
@@ -14,11 +15,29 @@ export default function SimulationChat({ id }: SimulationChatProps) {
   const [isChatOpen, setIsChatOpen] = useState(false)
   const { messages, isLoading, error, sendMessage } = useSimulationChat(id)
   const [userMessage, setUserMessage] = useState<string>('')
+  const scrollableRef = useRef<HTMLDivElement | null>(null)
+  const messageEndRef = useRef<HTMLDivElement | null>(null)
 
   const handleSendMessage = (e: SyntheticEvent<HTMLFormElement>) => {
     e.preventDefault()
     sendMessage(userMessage)
+    setUserMessage('')
   }
+
+  useEffect(() => {
+    if (!isChatOpen) {
+      return
+    }
+
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    } else if (scrollableRef.current) {
+      scrollableRef.current.scrollTo({
+        top: scrollableRef.current.scrollHeight,
+        behavior: 'smooth',
+      })
+    }
+  }, [messages, isChatOpen])
 
   return (
     <div
@@ -52,21 +71,26 @@ export default function SimulationChat({ id }: SimulationChatProps) {
               Como posso ajudar com os resultados da sua simulação?
             </p>
           </div>
-          <div className="flex-1 overflow-auto scrollbar-thin [scrollbar-color:var(--border)_transparent] pt-2 pb-4">
+          <Divider orientation="horizontal" />
+          <div
+            ref={scrollableRef}
+            className="flex-1 overflow-auto scrollbar-thin [scrollbar-color:var(--border)_transparent] pt-2 pb-4"
+          >
+            {!error &&
+              messages.map((message, index) => (
+                <div key={index}>
+                  <ChatMessage whoSent={message.role} message={message.text} />
+                  <Divider />
+                </div>
+              ))}
             {isLoading && (
-              <Skeleton
-                count={16.5}
-                baseColor="var(--color-skeleton-base)"
-                highlightColor="var(--color-skeleton-highlight)"
-                className="mb-3 flex rounded-lg"
-                containerClassName="flex-1"
-                inline
-              />
+              <div>
+                <ChatMessage whoSent="assistant" message="" isLoading />
+                <Divider />
+              </div>
             )}
-            {!isLoading && error && <Error message={error} onRetry={() => alert('teste')} />}
-            {!isLoading &&
-              !error &&
-              messages.map((message, index) => <p key={index}>{message.text}</p>)}
+            {!isLoading && error && <Error message={error} onRetry={() => handleSendMessage} />}
+            <div ref={messageEndRef} />
           </div>
           <form
             onSubmit={handleSendMessage}

@@ -93,6 +93,13 @@ Dados da simulação:
 Use sempre uma linguagem em português do Brasil, clara e empática.
 Responda com foco na situação financeira do usuário e na simulação atual.
 
+Regras: 
+ - você deve retornar sempre um texto cru, pois será exibido dentro de um componente react, no máximo alguns emojis
+ - onde for negrito retorne como <b>texto aqui</b> e não entre *
+ - preserve as quebras de linha no texto; o componente irá renderizar isso corretamente
+ - não use markdown, nem asteriscos, nem underlines para negrito
+ - em vez de markdown, use tags HTML simples como <b> para negrito e <br/> para novas linhas, quando necessário
+
 Histórico recente da conversa:
 ${historyLines}
 
