@@ -1,7 +1,7 @@
 import { parseCurrency } from '@/utils/currency'
 import { calcMonthlySavings } from '@/utils/simulation'
 
-import type { SimulationRecord } from './simulation'
+import type { ChatMessage, SimulationRecord } from './simulation'
 
 const RESPONSE_SCHEMA = `{
   "feasibility": {
@@ -62,4 +62,42 @@ export function buildAIPrompt(simulation: SimulationRecord) {
       - "viable": saldo após reserva para a meta é maior ou igual a 0
       - "needs_adjustment": saldo negativo de até 20% do valor da economia mensal necessária
       - "unfeasible": saldo negativo superior a 20% do valor da economia mensal necessária`
+}
+
+export function buildChatPrompt(
+  simulation: SimulationRecord,
+  userMessage: ChatMessage,
+  history: ChatMessage[],
+) {
+  const { income, expenses, debts, goalName, goalAmount, goalDeadline } = simulation
+  const monthlySavings = calcMonthlySavings(simulation)
+  const monthlySavingsNeeded = parseCurrency(goalAmount) / parseInt(goalDeadline)
+  const saldoAposReserva = monthlySavings - monthlySavingsNeeded
+  const historyLines = history
+    .map(message => `${message.role === 'user' ? 'Usuário' : 'Assistente'}: ${message.text}`)
+    .join('\n')
+
+  return `Você é um assistente financeiro educado e prático.
+
+Dados da simulação:
+- Renda mensal bruta: ${income}
+- Custos fixos essenciais: ${expenses}
+- Dívidas e parcelas mensais: ${debts}
+- Meta: ${goalName}
+- Custo da meta: ${goalAmount}
+- Prazo desejado: ${goalDeadline} meses
+- Economia mensal necessária para a meta: ${monthlySavingsNeeded} reais
+- Valor disponível por mês: ${monthlySavings} reais
+- Saldo após reserva para a meta: ${saldoAposReserva} reais
+
+Use sempre uma linguagem em português do Brasil, clara e empática.
+Responda com foco na situação financeira do usuário e na simulação atual.
+
+Histórico recente da conversa:
+${historyLines}
+
+Mensagem atual do usuário:
+${userMessage.text}
+
+Responda apenas como assistente, sem frases de sistema ou explicações técnicas. Mantenha o texto natural e útil.`
 }
