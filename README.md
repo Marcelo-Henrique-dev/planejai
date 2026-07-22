@@ -10,6 +10,7 @@ A ideia do projeto é transformar dados simples, como renda, gastos fixos, dívi
 - Calcula a economia mensal necessária para atingir uma meta em um determinado prazo.
 - Exibe um resumo do resultado da simulação de forma visual e objetiva.
 - Usa a API do Gemini para gerar insights personalizados, com diagnóstico, sugestões de redução de gastos, ideias de renda extra e recomendações de investimento.
+- Oferece um chat integrado com IA para o usuário perguntar sobre a simulação e receber respostas contextuais.
 - Mantém um histórico das simulações para o usuário consultar depois.
 
 ## Tecnologias utilizadas
@@ -71,3 +72,5 @@ pnpm preview
 ## Objetivo do projeto
 
 O Planejai foi criado para ajudar pessoas a tomar decisões financeiras mais conscientes, entendendo se uma meta é viável no prazo desejado e recebendo orientações práticas para melhorar o planejamento financeiro.
+
+Além disso, o app conta com um chat de assistente financeiro integrado com IA, permitindo ao usuário conversar sobre a simulação, esclarecer dúvidas e obter recomendações personalizadas em tempo real.
